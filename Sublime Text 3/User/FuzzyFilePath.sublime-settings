@@ -1,0 +1,15 @@
+{
+	"additional_scopes": [
+		{
+			// python
+			"scope": "meta.string.python",
+			//"extensions": ["py"],
+			"auto": true,
+			"relative": true,
+			// "replace_on_insert": [
+			// 	["^\\/", ""],
+			// 	["\\/", "."],
+			// ]
+		},
+	],
+}

@@ -1,0 +1,52 @@
+[
+// Fucks up multiple panes
+	{ "keys": ["ctrl+tab"], "command": "next_view" },
+	{ "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+
+	{ "keys": ["ctrl+pagedown"], "command": "next_view_in_stack" },
+	{ "keys": ["ctrl+pageup"], "command": "prev_view_in_stack" },
+
+	{ "keys": ["ctrl+shift+t"], "command": "reopen_last_file" },
+	{ "keys": ["ctrl+shift+alt+t"], "command": "open_terminal" },
+
+	{ "keys": ["ctrl+n"], "command": "new_file"}, // Replaces "new_file"
+	{ "keys": ["ctrl+alt+n"], "command": "advanced_new_file_new"}, // Replaces "advanced_new_file_new" from the package
+
+	// Jump over closing '")]} etc with tab
+	{ "keys": ["tab"], "command": "move", "args": {"by": "characters", "forward": true}, "context":
+		[
+			{ "key": "auto_complete_visible", "operator": "equal", "operand": false },
+			{ "key": "popup_visible", "operator": "equal", "operand": false },
+			{ "key": "has_next_field", "operator": "equal", "operand": false },
+			{ "key": "selection_empty", "operator": "equal", "operand": true, "match_all": true },
+			{ "key": "following_text", "operator": "regex_match", "operand": "^\\)|]|\\}|>|\"|'", "match_all": true },
+		]
+	},
+
+	// Swap move-by-words and move-by-subwords
+	{ "keys": ["alt+left"], "command": "move", "args": {"by": "words", "forward": false} },
+	{ "keys": ["alt+right"], "command": "move", "args": {"by": "word_ends", "forward": true} },
+	{ "keys": ["alt+shift+left"], "command": "move", "args": {"by": "words", "forward": false, "extend": true} },
+	{ "keys": ["alt+shift+right"], "command": "move", "args": {"by": "word_ends", "forward": true, "extend": true} },
+
+	{ "keys": ["ctrl+left"], "command": "move", "args": {"by": "subwords", "forward": false} },
+	{ "keys": ["ctrl+right"], "command": "move", "args": {"by": "subword_ends", "forward": true} },
+	{ "keys": ["ctrl+shift+left"], "command": "move", "args": {"by": "subwords", "forward": false, "extend": true} },
+	{ "keys": ["ctrl+shift+right"], "command": "move", "args": {"by": "subword_ends", "forward": true, "extend": true} },
+
+	// Expand selection to whitespace
+	{ "keys": ["ctrl+shift+x"], "command": "expand_selection_to_whitespace" },
+
+		// Replace panel key bindings
+	// Defaults to ctrl+shift+h which seems too random. Replaces "replace_all" binding
+	{ "keys": ["ctrl+alt+enter"], "command": "replace_next", "context":
+		[{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+	},
+
+	// In selection toggle for find panel
+	{ "keys": ["alt+s"], "command": "toggle_in_selection", "context":
+		[
+			{ "key": "setting.is_widget", "operator": "equal", "operand": true }
+		]
+	},
+]

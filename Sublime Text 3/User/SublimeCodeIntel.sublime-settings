@@ -1,0 +1,6 @@
+{
+	"codeintel_syntax_map": {
+       "Python Django": "Python",
+       "MagicPython": "Python"
+    }
+}

@@ -1,0 +1,9 @@
+{
+	"root": "D:/Documents/Notes",
+	"list_options" : {
+		"display_modified_date": true,
+		"display_folder": true,
+		"display_full_path": true
+	},
+	"note_save_extension": "note",
+}

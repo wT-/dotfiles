@@ -1,0 +1,7 @@
+{
+	"complete_parameters": false,
+    "complete_all_parameters": false,
+    "anaconda_linting": false, // Using SublimeLinter-flake8
+    "python_interpreter": "python3",
+    "swallow_startup_errors": true
+}

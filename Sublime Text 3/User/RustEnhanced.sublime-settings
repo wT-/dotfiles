@@ -1,0 +1,13 @@
+{
+	"extensions":
+	[
+		"rs"
+	],
+	"rust_phantom_style": "popup",
+	"rust_syntax_checking_method": "clippy",
+	"tab_size": 4,
+	"translate_tabs_to_spaces": true,
+	"rust_message_status_bar": true,
+	"rust_syntax_checking": false,
+	"rust_region_style": "squiggly_outline",
+}

@@ -1,0 +1,21 @@
+{
+	"clients":
+	{
+		"pyls":
+		{
+			"enabled": false
+		},
+		"rls":
+		{
+			"enabled": true
+		}
+	},
+	"diagnostics_gutter_marker": "circle",
+	"log_debug": false,
+	"log_server": false,
+	"log_stderr": false,
+	"show_diagnostics_phantoms": false,
+	"show_references_in_quick_panel": false,
+	"diagnostics_highlight_style": "underline",
+	"document_highlight_style": "underline"
+}
