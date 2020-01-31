@@ -1,2 +1,6 @@
 /Sublime Text 3/User/Package Control.cache
 /Sublime Text 3/User/.SublimeREPLHistory
+*.sublime-license
+*.bak
+/fish/fundle/
+/Sublime Text 3/User/Package Control.last-run
