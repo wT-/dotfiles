@@ -9,5 +9,6 @@ fundle plugin 'matchai/spacefish'
 fundle plugin 'edc/bass'
 fundle plugin 'danhper/fish-fastdir'
 fundle plugin 'oh-my-fish/plugin-foreign-env'
+fundle plugin 'laughedelic/pisces'
 
 fundle init
