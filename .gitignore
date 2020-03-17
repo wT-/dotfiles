@@ -1,6 +1,7 @@
 /Sublime Text 3/User/Package Control.cache
 /Sublime Text 3/User/.SublimeREPLHistory
-*.sublime-license
+*.sublime_license
 *.bak
 /fish/fundle/
+/fish/functions/fzf_key_bindings.fish
 /Sublime Text 3/User/Package Control.last-run
