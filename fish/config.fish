@@ -12,5 +12,8 @@ fundle plugin 'laughedelic/pisces'
 
 fundle init
 
+# Hide the fish greeting
+set fish_greeting ""
+
 # Yet another prompt. Written in Rust. Fast
 starship init fish | source
