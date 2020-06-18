@@ -1,0 +1,5 @@
+# Symlinks keep messing things up for me (which "side" should be the link?
+# Git commits the links instead of the content. Etc...), so this script can
+# quickly copy the User dir here
+Remove-Item -LiteralPath "$PSScriptRoot\User" -Force -Recurse
+Copy-Item -LiteralPath "C:\Users\wT\AppData\Roaming\Sublime Text 3\Packages\User" -Destination "$PSScriptRoot" -Recurse
