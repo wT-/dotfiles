@@ -8,7 +8,7 @@
 	"aprosopo_show_tab_close_buttons": true,
 	"aprosopo_show_tab_close_on_hover": true,
 	"aprosopo_solid_tab": true,
-	"auto_complete": false,
+	"auto_complete": true,
 	"auto_complete_commit_on_tab": true,
 	"auto_complete_triggers":
 	[
@@ -63,7 +63,9 @@
 		".mypy_cache",
 		".ropeproject"
 	],
-	"font_face": "Consolas NF",
+	// font_face expects the "fullname" from the naming table of the font
+	// Check with https://opentype.js.org/font-inspector.html
+	"font_face": "Consolas Nerd Font Complete Mono Windows Compatible",
 	"font_size": 10,
 	"highlight_line": true,
 	"highlight_modified_tabs": true,
@@ -74,6 +76,7 @@
 		"Rust",
 		"SublimeLinter",
 		"SublimeLinter-flake8",
+		"TabNine",
 		"Vintage"
 	],
 	"indent_guide_options":

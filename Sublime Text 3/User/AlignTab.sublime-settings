@@ -1,0 +1,6 @@
+{
+	"named_patterns": {
+		// First encounter of >=2 spaces left-justified with spacing of two
+		"TwoOrMoreSpace": "\\s{2,}/l2f",
+	},
+}

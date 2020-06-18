@@ -22,7 +22,6 @@
 		"FuzzyFilePath",
 		"Git",
 		"GitGutter",
-		"Javascript Beautify",
 		"JavaScript Ultimate",
 		"Jinja2",
 		"JsFormat",
@@ -49,6 +48,7 @@
 		"Text Pastry",
 		"Theme - Aprosopo",
 		"TOML",
+		"TypeScript Syntax",
 		"Virtualenv"
 	]
 }
