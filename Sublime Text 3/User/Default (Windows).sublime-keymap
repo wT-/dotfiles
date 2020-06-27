@@ -49,4 +49,7 @@
 			{ "key": "setting.is_widget", "operator": "equal", "operand": true }
 		]
 	},
+
+	// Our custom select matching bracket
+	{ "keys": ["ctrl+alt+d"], "command": "find_next_bracket_under_expand" },
 ]
