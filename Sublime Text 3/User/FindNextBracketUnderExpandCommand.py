@@ -6,68 +6,100 @@ OPENING_BRACKETS = "{[("
 CLOSING_BRACKETS = "}])"
 BRACKETS = OPENING_BRACKETS + CLOSING_BRACKETS
 
-def FindMatchingBracket(starting_bracket, starting_region, view, forward=True):
-    if forward:
-        bracket_to_find = CLOSING_BRACKETS[OPENING_BRACKETS.find(starting_bracket)]
-        return view.find(bracket_to_find, starting_region.begin(), sublime.LITERAL)
-    else:
-        # This sucks because there's no find_reverse() method...
-        bracket_to_find = OPENING_BRACKETS[CLOSING_BRACKETS.find(starting_bracket)]
-
-        # Start from the last match and skip until we're behind the starting region again
-        for region in reversed(view.find_all(bracket_to_find, sublime.LITERAL)):
-            if region.begin() > starting_region.begin():
-                continue
-            return region
-
-
-def TryAddMatchingBracket(char, region, view):
-    # Find next closing bracket / prev opening bracket
-    matching_bracket_region = FindMatchingBracket(char, region, view, forward=char in OPENING_BRACKETS)
-    if not matching_bracket_region:
-        return
-
-    print("Found matching bracket", view.substr(matching_bracket_region), "at", matching_bracket_region.begin(), matching_bracket_region.end())
-
-    # Clear selections
-    view.sel().clear()
-
-    # Make sure the original selection goes left-to-right
-    normalized_region = sublime.Region(region.begin(), region.end())
-
-    # Add original selection and the matching bracket
-    view.sel().add(normalized_region)
-    view.sel().add(matching_bracket_region)
-
 class FindNextBracketUnderExpandCommand(sublime_plugin.TextCommand):
+    def NextChar(self, point):
+        return self.view.substr(point)
+
+    def PrevChar(self, point):
+        return self.view.substr(point - 1)
+
+    def NextCharRegion(self, point):
+        return sublime.Region(point, point + 1)
+
+    def PrevCharRegion(self, point):
+        return sublime.Region(point - 1, point)
+
+    def matching_bracket(self, bracket):
+        if bracket in OPENING_BRACKETS:
+            return CLOSING_BRACKETS[OPENING_BRACKETS.find(bracket)]
+        elif bracket in CLOSING_BRACKETS:
+            return OPENING_BRACKETS[CLOSING_BRACKETS.find(bracket)]
+
+    def MoveAndGetRegion(self, starting_region, mode):
+        self.view.run_command("move_to", {"to": "brackets"})
+        region_after_move = self.view.sel()[0]
+
+        # Did we move forward?
+        if starting_region.a < region_after_move.a:
+            # Caret moves to the right side of the bracket so account for that
+            if mode == "inside":
+                return self.NextCharRegion(region_after_move.a)
+            else:
+                return self.PrevCharRegion(region_after_move.a)
+        # Or backward?
+        elif starting_region.a > region_after_move.a:
+            # Caret moves to the left of the bracket
+            if mode == "inside":
+                return self.PrevCharRegion(region_after_move.a)
+            else:
+                return self.NextCharRegion(region_after_move.a)
+        # No matching bracket found :(
+        else:
+            return None
+
+    def ReplaceSelectionWith(self, selections):
+        self.view.sel().clear()
+        for selection in selections:
+            self.view.sel().add(selection)
+
     def run(self, edit):
         # It doesn't make sense to do anything if there are multiple selections
         if len(self.view.sel()) > 1:
-            print("No multi-selections!")
             return
 
-        region = self.view.sel()[0]
+        starting_region = self.view.sel()[0]
 
-        if region.size() > 1:
-            print("Only one char selection please!")
+        # No selection allowed because running the command with no matching bracket
+        # throws it away. Should save the original region and restore if needed.
+        # There's also the issue of moving between brackets right next to each other
+        # which needs to be detected.
+        if starting_region.size() > 0:
             return
 
-        if not region.empty():
-            # Only one character selected, try to add its' matching bracket to selection
-            char = self.view.substr(region)
-            if char in BRACKETS:
-                print("Found", char, "at", region.begin(), region.end())
-                TryAddMatchingBracket(char, region, self.view)
+        # This is complicated. Moving within brackets moves the caret to the "inside"
+        # of the next. If the caret is on the "outside" touching a brace, it moves
+        # to the "outside". This means that moving between touching braces breaks,
+        # i.e. with cursor in x:
+        # (  x   ())
+        # it selects the wrong braces.
+        # Not sure how to fix.
+
+        # If there's a bracket to the right of the caret, it'll move to its matching
+        # caret's outside edge
+
+        next_char = self.NextChar(starting_region.a)
+        next_next_char = self.NextChar(starting_region.a + 1)
+        prev_char = self.PrevChar(starting_region.a)
+
+        # With | as the caret:
+        # Handle "(|)"
+        if prev_char in OPENING_BRACKETS and next_char in CLOSING_BRACKETS:
+            region = sublime.Region(starting_region.a - 1, starting_region.a + 1)
+            self.ReplaceSelectionWith([region])
+        # Handle "|()(...)" etc
+        elif next_char in OPENING_BRACKETS and next_next_char in CLOSING_BRACKETS:
+            region = sublime.Region(starting_region.a, starting_region.a + 2)
+            self.ReplaceSelectionWith([region])
+        # Caret touching the outside edge
+        elif next_char in OPENING_BRACKETS or prev_char in CLOSING_BRACKETS:
+            mode = "outside"
         else:
-            # No selection so see if we got a bracket on either side of the caret
-            region_left_of_caret = sublime.Region(region.begin(), region.begin() + 1)
-            char = self.view.substr(region_left_of_caret)
-            if char in BRACKETS:
-                print("Found", char, "at", region_left_of_caret.begin(), region_left_of_caret.end())
-                TryAddMatchingBracket(char, region_left_of_caret, self.view)
+            # This is the error prone situation described above
+            mode = "inside"
 
-            region_right_of_caret = sublime.Region(region.begin() - 1, region.begin())
-            char = self.view.substr(region_right_of_caret)
-            if char in BRACKETS:
-                print("Found", char, "at", region_right_of_caret.begin(), region_right_of_caret.end())
-                TryAddMatchingBracket(char, region_right_of_caret, self.view)
+        bracket1 = self.MoveAndGetRegion(starting_region=starting_region, mode=mode)
+        if not bracket1:
+            return
+        bracket2 = self.MoveAndGetRegion(starting_region=bracket1, mode=mode)
+
+        self.ReplaceSelectionWith([bracket1, bracket2])
