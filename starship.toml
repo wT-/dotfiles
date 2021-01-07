@@ -1,10 +1,26 @@
+add_newline = false
+
 # Sets the prompt symbol
 [character]
-symbol = "λ"
+success_symbol = "[λ](bold green)"
+error_symbol = "[λ](bold red)"
 
 # Show more than the default 3 folders
 [directory]
 truncation_length = 6
+truncate_to_repo = true
+truncation_symbol = ".. "
+# fish_style_pwd_dir_length = 1
+
+[git_status]
+# Replace $allstatus which is short for "$conflicted$stashed$deleted$renamed$modified$staged$untracked"
+# to remove $untracked
+format = '([\[$conflicted$stashed$deleted$renamed$modified$staged$ahead_behind\]]($style) )'
+
+# Is this broken on PowerShell?
+[status]
+disabled = false
+map_symbol = true
 
 ############
 # Change bunch of the symbols to Nerd Font symbols
@@ -17,41 +33,48 @@ symbol = " "
 full_symbol = ""
 charging_symbol = ""
 discharging_symbol = ""
+[cmake]
+symbol = "CMake 喝 "
 [conda]
-symbol = " "
+symbol = "Conda  "
+[dart]
+symbol = "Dart  "
 [docker]
-symbol = " "
+symbol = "Docker  "
 [elixir]
-symbol = " "
+symbol = "Elixir  "
 [elm]
-symbol = " "
+symbol = "Elm  "
 [git_branch]
-symbol = " "
+symbol = "Git  "
 [golang]
-symbol = " "
+symbol = "Go  "
 [haskell]
-symbol = " "
+symbol = "Haskell  "
 [hg_branch]
-symbol = " "
+symbol = "Hg  "
 [java]
-symbol = " "
+symbol = "Java  "
 [julia]
-symbol = " "
+symbol = "Julia  "
 [memory_usage]
+# Has default threshold of 75% even if enabled
+disabled = false
+format = "Mem $symbol [${ram}]($style) "
 symbol = " "
 [nim]
-symbol = " "
+symbol = "Nim  "
 [nix_shell]
-symbol = " "
+symbol = "Nix  "
 [nodejs]
-symbol = " "
+symbol = "NodeJS  "
 [package]
-symbol = " "
+symbol = "Package  "
 [php]
-symbol = " "
+symbol = "PHP  "
 [python]
-symbol = " "
+symbol = "Python  "
 [ruby]
-symbol = " "
+symbol = "Ruby  "
 [rust]
-symbol = " "
+symbol = "Rust  "
