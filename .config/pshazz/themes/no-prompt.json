@@ -1,0 +1,15 @@
+{
+    "plugins": ["aliases", "dircolors", "g", "ssh", "z"],
+    "dircolors": {
+        "dirs": [
+            [".*", "darkyellow", ""]
+        ],
+        "files": [
+            ["(?ix).(7z|zip|tar|gz|rar)$", "darkmagenta", ""],
+            ["(?ix).(exe|bat|cmd|ps1|psm1|vbs|reg|css)$", "darkgreen", ""],
+            ["(?ix).(php|rb|py|pl|js)$", "blue", ""],
+            ["(?ix).(sln|csproj|sqlproj|proj|targets|html)$", "darkred", ""],
+            [".*", "gray", ""]
+        ]
+    }
+}
