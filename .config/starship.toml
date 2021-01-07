@@ -9,7 +9,7 @@ error_symbol = "[λ](bold red)"
 [directory]
 truncation_length = 6
 truncate_to_repo = true
-truncation_symbol = ".. "
+truncation_symbol = "…/"
 # fish_style_pwd_dir_length = 1
 
 [git_status]
@@ -21,6 +21,9 @@ format = '([\[$conflicted$stashed$deleted$renamed$modified$staged$ahead_behind\]
 [status]
 disabled = false
 map_symbol = true
+
+[username]
+format = "[$user]($style) on "
 
 ############
 # Change bunch of the symbols to Nerd Font symbols

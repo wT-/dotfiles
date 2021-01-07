@@ -29,3 +29,4 @@ kitty + complete setup fish | source
 
 # Yet another prompt. Written in Rust. Fast
 starship init fish | source
+starship completions | source
