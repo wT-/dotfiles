@@ -42,7 +42,7 @@ symbol = "CMake 喝 "
 symbol = "Conda  "
 [dart]
 symbol = "Dart  "
-[docker]
+[docker_context]
 symbol = "Docker  "
 [elixir]
 symbol = "Elixir  "
@@ -52,8 +52,6 @@ symbol = "Elm  "
 symbol = "Git  "
 [golang]
 symbol = "Go  "
-[haskell]
-symbol = "Haskell  "
 [hg_branch]
 symbol = "Hg  "
 [java]
