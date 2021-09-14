@@ -1,0 +1,4 @@
+[submodule "powershell"]
+	path = powershell
+	url = git@github.com:wT-/powershell-profile.git
+	branch = main
