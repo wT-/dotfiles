@@ -3,6 +3,9 @@ if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
 # Prompt. Should use Spaceship instead
 # fundle plugin 'matchai/spacefish'
 
+# Remove directory truncation (defaults to only 3)
+# set -x SPACEFISH_DIR_TRUNC 0
+
 # Leaner than spacefish
 # Fundle install was broken last time I tried
 # fundle plugin 'rafaelrinaldi/pure'
@@ -20,9 +23,6 @@ fundle plugin 'danhper/fish-fastdir'
 fundle plugin 'laughedelic/pisces'
 
 fundle init
-
-# Remove directory truncation (defaults to only 3)
-set -x SPACEFISH_DIR_TRUNC 0
 
 # Completions for Kitty(?)
 kitty + complete setup fish | source
