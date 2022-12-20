@@ -33,7 +33,7 @@ end
 
 # Yet another prompt. Written in Rust. Fast
 starship init fish | source
-starship completions | source
+starship completions fish | source
 
 # Run previous command with sudo
 alias doh='commandline -i "sudo $history[1]";history delete --exact --case-sensitive doh'
