@@ -1,3 +1,4 @@
+# Auto install Fundle if it's not there
 if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
 
 # Prompt. Should use Spaceship instead
@@ -24,8 +25,11 @@ fundle plugin 'laughedelic/pisces'
 
 fundle init
 
-# Completions for Kitty(?)
-kitty + complete setup fish | source
+# Completions for Kitty
+# Not 100% sure about the conditional here. On the VM, Kitty's $TERM is "xterm-kitty"
+if string match '*-kitty' "$TERM"
+	kitty + complete setup fish | source
+end
 
 # Yet another prompt. Written in Rust. Fast
 starship init fish | source
